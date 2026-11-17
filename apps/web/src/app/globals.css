@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 38 33% 97%;
+    --foreground: 24 20% 10%;
+    --card: 42 38% 99%;
+    --card-foreground: 24 20% 10%;
+    --popover: 42 38% 99%;
+    --popover-foreground: 24 20% 10%;
+    --primary: 27 91% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 23% 93%;
+    --secondary-foreground: 24 20% 14%;
+    --muted: 36 23% 93%;
+    --muted-foreground: 28 8% 43%;
+    --accent: 31 55% 91%;
+    --accent-foreground: 25 75% 34%;
+    --destructive: 0 76% 54%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 32 18% 86%;
+    --input: 35 25% 94%;
+    --ring: 27 91% 54%;
+    --radius: 1rem;
+  }
+
+  .dark {
+    --background: 24 16% 7%;
+    --foreground: 36 28% 94%;
+    --card: 24 14% 10%;
+    --card-foreground: 36 28% 94%;
+    --popover: 24 14% 10%;
+    --popover-foreground: 36 28% 94%;
+    --primary: 28 91% 57%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 24 12% 15%;
+    --secondary-foreground: 36 28% 94%;
+    --muted: 24 12% 15%;
+    --muted-foreground: 30 9% 59%;
+    --accent: 28 22% 17%;
+    --accent-foreground: 30 90% 67%;
+    --destructive: 0 63% 38%;
+    --destructive-foreground: 36 28% 94%;
+    --border: 24 11% 20%;
+    --input: 24 12% 14%;
+    --ring: 28 91% 57%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-width: 320px;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image:
+      radial-gradient(circle at 85% -10%, rgba(225, 128, 43, 0.08), transparent 32rem),
+      linear-gradient(180deg, hsl(var(--background)), hsl(var(--background)));
+  }
+
+  ::selection {
+    background: rgba(230, 126, 34, 0.22);
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  a {
+    @apply transition-all duration-200;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid hsl(var(--ring) / 0.22);
+    outline-offset: 2px;
+  }
+
+  input,
+  select,
+  textarea {
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply border border-white/40 bg-background/75 backdrop-blur-xl;
+    box-shadow: 0 16px 40px rgba(45, 28, 12, 0.08);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-0.5;
+    box-shadow: 0 1px 2px rgba(45, 28, 12, 0.03);
+  }
+
+  .card-hover:hover {
+    box-shadow: 0 18px 45px rgba(77, 45, 19, 0.1);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .skeleton {
+    @apply relative overflow-hidden rounded-xl bg-muted;
+  }
+
+  .skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, hsl(var(--card) / 0.7), transparent);
+    animation: shimmer 1.6s infinite;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@layer components {
+  .app-shell {
+    background:
+      radial-gradient(circle at 100% 0%, rgba(230, 126, 34, 0.08), transparent 26rem),
+      hsl(var(--background));
+  }
+
+  .app-shell main > div:not([class*="fixed"]) {
+    width: min(100%, 1480px);
+    margin-inline: auto;
+  }
+
+  .app-shell main h1 {
+    letter-spacing: -0.035em;
+  }
+
+  .app-shell main .bg-card {
+    box-shadow:
+      0 1px 2px rgba(57, 35, 16, 0.03),
+      0 10px 30px rgba(57, 35, 16, 0.045);
+  }
+
+  .dark.app-shell main .bg-card {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.025),
+      0 18px 50px rgba(0, 0, 0, 0.16);
+  }
+
+  .premium-panel {
+    @apply rounded-3xl border border-border bg-card;
+    box-shadow:
+      0 1px 2px rgba(57, 35, 16, 0.03),
+      0 18px 50px rgba(57, 35, 16, 0.07);
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-bold uppercase text-primary;
+    letter-spacing: 0.16em;
+  }
+
+  .empty-state {
+    @apply rounded-3xl border border-dashed border-border bg-card/60 px-6 py-16 text-center text-muted-foreground;
+  }
+
+  .status-dot {
+    @apply inline-block h-2 w-2 rounded-full bg-emerald-500;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+  }
+}

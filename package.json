@@ -1,0 +1,45 @@
+{
+  "name": "menuflow",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "concurrently --names \"API,WEB\" --prefix-colors \"yellow,cyan\" \"npm run start:api\" \"npm run start:web\"",
+    "start:api": "cd backend && uvicorn app.main:app --reload --host 0.0.0.0 --port 8000",
+    "start:web": "npm run dev --workspace=apps/web",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build": "npm run build --workspace=apps/web",
+    "db:generate": "npm run prisma:generate --workspace=apps/api",
+    "db:migrate": "npm run prisma:migrate --workspace=apps/api",
+    "db:seed": "npm run prisma:seed --workspace=apps/api",
+    "db:studio": "npm run prisma:studio --workspace=apps/api",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "overrides": {
+    "form-data": "4.0.6",
+    "js-yaml": "4.2.0",
+    "multer": "2.2.0",
+    "file-type": "22.0.1",
+    "postcss": "8.5.15",
+    "qs": "6.15.2",
+    "ws": "8.21.0"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.26",
+    "@nestjs/core": "^11.1.26",
+    "@nestjs/platform-express": "^11.1.26",
+    "@nestjs/platform-socket.io": "^11.1.26",
+    "@nestjs/websockets": "^11.1.26",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "7.8.1"
+  }
+}
